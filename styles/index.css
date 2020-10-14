@@ -1,0 +1,43 @@
+@tailwind base;
+
+/* Write your own custom base styles here */
+
+/* Start purging... */
+@tailwind components;
+/* Stop purging. */
+
+/* Start purging... */
+@tailwind utilities;
+/* Stop purging. */
+
+/* Your own custom utilities */
+
+@font-face {
+  font-family: "Louize";
+  src: url("/static/fonts/LouizeTrial-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Louize";
+  src: url("/static/fonts/LouizeTrial-Bold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+.main__normal {
+  font-family: "Louize";
+  font-weight: mormal;
+}
+
+.main__bold {
+  font-family: "Louize";
+  font-weight: bold;
+}
+
+.main__text {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: normal;
+}
