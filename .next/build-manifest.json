@@ -24,11 +24,6 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/meet": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/meet.js"
-    ],
     "/meet/[id]": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",

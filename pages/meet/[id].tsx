@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import MainLogo from '../assets/MainLogo';
 
 const MeetWithIDPage = () => {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
   const { id } = router.query;
+  const [loading, setLoading] = useState(true);
   function startConference() {
     try {
-      const domain = 'jitsi-editreadmedapatbaju.cs.ui.ac.id/';
+      const domain = 'jitsi-editreadmedapatbaju.cs.ui.ac.id/jitsi/';
+      // const domain = 'meet.jit.si/';
       const options = {
         roomName: `${id}`,
         height: '100%',
@@ -48,6 +48,7 @@ const MeetWithIDPage = () => {
     <>
       <Head>
         <script src="https://meet.jit.si/external_api.js"></script>
+        <title>uimeet | {id} Meeting</title>
       </Head>
       <div className=" w-screen h-screen">
         <div id="jitsi-container" className="w-full h-full"></div>
