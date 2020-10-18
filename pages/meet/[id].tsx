@@ -9,7 +9,7 @@ const MeetWithIDPage = () => {
   const { id } = router.query;
   function startConference() {
     try {
-      const domain = 'jitsi-editreadmedapatbaju.cs.ui.ac.id/';
+      const domain = 'jitsi-editreadmedapatbaju.cs.ui.ac.id/jitsi';
       const options = {
         roomName: `${id}`,
         height: '100%',
