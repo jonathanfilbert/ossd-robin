@@ -1,18 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Jitsi from 'react-jitsi';
 import Loading from '../../components/Loading';
-import isEmpty from 'lodash/isEmpty';
 
 const MeetWithIDPage = () => {
   const router = useRouter();
   const { meetId } = router.query;
-  useEffect(() => {
-    if (isEmpty(meetId)) {
-      router.push('/create');
-    }
-  }, []);
   return (
     <>
       <Head>
