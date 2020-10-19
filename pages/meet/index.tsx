@@ -2,7 +2,6 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Jitsi from 'react-jitsi';
-import isEmpty from 'lodash/isEmpty';
 import Loading from '../../components/Loading';
 
 const MeetWithIDPage = () => {
@@ -28,14 +27,5 @@ const MeetWithIDPage = () => {
     </>
   );
 };
-
-export async function getServerSideProps(context) {
-  if (isEmpty(context.query.meetId)) {
-    window.location.replace('/create');
-  }
-  return {
-    props: {}, // will be passed to the page component as props
-  };
-}
 
 export default MeetWithIDPage;
