@@ -32,9 +32,9 @@ const Index = () => {
   const handleCreateMeeting = () => {
     if (roomName.split(' ').length > 1) {
       const formattedRoomName = roomName.split(' ').join('-');
-      router.push(`/meet/${formattedRoomName}`);
+      router.push('/meet/[id]', `/meet/${formattedRoomName}`);
     } else {
-      router.push(`/meet/${roomName}`);
+      router.push('/meet/[id]', `/meet/${roomName}`);
     }
   };
   return (

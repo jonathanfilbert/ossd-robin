@@ -4,10 +4,17 @@ import Head from 'next/head';
 import Jitsi from 'react-jitsi';
 import Loading from '../../components/Loading';
 
+type MeetWithIDPageProps = {
+  id: string;
+};
+
 const MeetWithIDPage = () => {
   const router = useRouter();
-  const { id } = router.query;
-
+  let { id } = router.query;
+  if (process.browser) {
+    // client-side-only code
+    id = `${router.query}`;
+  }
   return (
     <>
       <Head>
@@ -28,5 +35,15 @@ const MeetWithIDPage = () => {
     </>
   );
 };
+
+// export const getServerSideProps = async (context) => {
+//   const router = useRouter();
+//   const { id } = router.query;
+//   return {
+//     props: {
+//       id,
+//     },
+//   };
+// };
 
 export default MeetWithIDPage;
