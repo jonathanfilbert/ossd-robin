@@ -4,13 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "build": "next build && next export"
   },
   "dependencies": {
+    "lodash": "^4.17.20",
     "next": "9.5.5",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-jitsi": "^1.0.4",
+    "react-query": "^2.23.1",
     "styled-components": "^5.2.0",
     "tailwindcss": "^1.9.1"
   },
