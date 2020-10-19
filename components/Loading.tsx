@@ -7,7 +7,7 @@ const Loading = () => {
     fetch('https://api.adviceslip.com/advice').then((res) => res.json()),
   );
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center">
+    <div className="w-full h-full flex flex-col justify-center items-center px-3 text-center">
       <div className="animate-pulse flex flex-col items-center">
         <MainLogo />
         <div className="mt-5">
