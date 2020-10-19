@@ -2,15 +2,11 @@ import React from 'react';
 
 const DescriptionSection = () => {
   return (
-    <div className=" w-screen min-h-screen flex flex-col items-center mt-40 px-8 mb-20">
+    <div className=" w-screen min-h-screen flex flex-col items-center mt-5 sm:mt-40 px-8 mb-20">
       <div
-        className="w-full md:w-4/5 md:h-64 flex flex-col md:flex-row items-center text-justify"
+        className="w-full h-auto md:w-4/5 md:h-64 flex flex-col lg:flex-row items-center"
         id="info"
       >
-        <img
-          src="/static/images/asset_learning.png"
-          className="md:h-full h-40 md:order-1 w-auto"
-        />
         <div className="w-auto order-2 md:order-2">
           <div className="md:text-5xl text-2xl text-dark main__bold">
             Classroom without the class.
@@ -29,10 +25,18 @@ const DescriptionSection = () => {
             </div>
           </div>
         </div>
+        <img
+          src="/static/images/asset_learning.png"
+          className="md:h-full order-21md:order-1 w-full h-auto md:w-auto"
+        />
       </div>
-      <div className="md:w-4/5 md:h-64 flex flex-col md:flex-row items-center mt-20">
-        <div className="w-auto order-2 md:order-1 text-justify">
-          <div className="text-2xl md:text-5xl text-dark main__bold">
+      <div className="md:w-4/5 h-auto md:h-64 flex flex-col lg:flex-row items-center mt-5 md:mt-20">
+        <img
+          src="/static/images/asset_rocket.png"
+          className="md:h-full order-1 md:order-1 w-full h-auto md:w-auto"
+        />
+        <div className="w-auto order-2 md:order-2">
+          <div className="text-2xl lg:text-5xl text-dark main__bold">
             40 minutes? Zoom past that.
           </div>
           <div className="main__text text-lg text-muted">
@@ -52,10 +56,6 @@ const DescriptionSection = () => {
             </a>
           </div>
         </div>
-        <img
-          src="/static/images/asset_rocket.png"
-          className="md:h-full h-40 order-1 md:order-2 w-auto"
-        />
       </div>
     </div>
   );
