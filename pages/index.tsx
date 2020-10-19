@@ -28,7 +28,7 @@ const Wrapper = styled.div`
 const Index = () => {
   const router = useRouter();
   const handleLogin = () => {
-    router.push('/meet');
+    router.push('/create');
   };
   return (
     <Wrapper>
