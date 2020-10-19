@@ -26,13 +26,13 @@ const DescriptionSection = () => {
           </div>
         </div>
         <img
-          src="/static/images/asset_learning.png"
+          src="/resources/images/asset_learning.png"
           className="md:h-full order-21md:order-1 w-full h-auto md:w-auto"
         />
       </div>
       <div className="md:w-4/5 h-auto md:h-64 flex flex-col lg:flex-row items-center mt-5 md:mt-20">
         <img
-          src="/static/images/asset_rocket.png"
+          src="/resources/images/asset_rocket.png"
           className="md:h-full order-1 md:order-1 w-full h-auto md:w-auto"
         />
         <div className="w-auto order-2 md:order-2">

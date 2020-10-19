@@ -15,7 +15,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <LayoutWrapper className="main__bold w-screen min-h-screen flex flex-col relative">
       <div className="fixed top-0 pl-2">
-        <img src="/static/images/fasilkom.png" className="  h-20 w-auto " />
+        <img src="/resources/images/fasilkom.png" className="  h-20 w-auto " />
       </div>
       <div className="w-100 h-12 md:h-16 flex flex-row justify-center  pt-3">
         <MainLogo className=" max-h-full w-auto" />

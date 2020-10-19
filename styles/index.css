@@ -14,14 +14,14 @@
 
 @font-face {
   font-family: 'Louize';
-  src: url('/static/fonts/LouizeTrial-Regular.otf') format('opentype');
+  src: url('/resources/fonts/LouizeTrial-Regular.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Louize';
-  src: url('/static/fonts/LouizeTrial-Bold.otf') format('opentype');
+  src: url('/resources/fonts/LouizeTrial-Bold.otf') format('opentype');
   font-weight: bold;
   font-style: normal;
 }

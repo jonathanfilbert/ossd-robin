@@ -10,7 +10,7 @@ const MeetWithIDPage = () => {
   return (
     <>
       <Head>
-        <script src="https://meet.jit.si/external_api.js"></script>
+        <script src="https://jitsi-editreadmedapatbaju.cs.ui.ac.id/jitsi/external_api.js"></script>
         <title>uimeet | {meetId} Meeting</title>
       </Head>
       <div className=" w-screen h-screen">
