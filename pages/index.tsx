@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import styled from 'styled-components';
 import GradientAsset from './assets/GradientAsset';
@@ -6,6 +6,9 @@ import MainLogo from './assets/MainLogo';
 import Button from '../components/Button';
 import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
+import { useQuery } from 'react-query';
+import { DJANGO_SSO_LOGIN_URL } from '../utils/api';
+import axios from 'axios';
 
 const Wrapper = styled.div`
   @keyframes spin {
@@ -27,9 +30,40 @@ const Wrapper = styled.div`
 
 const Index = () => {
   const router = useRouter();
+
   const handleLogin = () => {
-    router.push('/create');
+    const loginWindow = window.open(
+      DJANGO_SSO_LOGIN_URL,
+      '_blank',
+      'width=800,height=800',
+    );
+
+    const getUserDataInterval = setInterval(() => {
+      if (loginWindow.closed) {
+        clearInterval(getUserDataInterval);
+      }
+      loginWindow.postMessage('JOFIL', DJANGO_SSO_LOGIN_URL);
+    }, 1000);
   };
+
+  const receiveLoginData = (event) => {
+    const origin = event.origin || event.originalEvent.origin;
+    const user = event.data;
+
+    if (DJANGO_SSO_LOGIN_URL.startsWith(origin)) {
+      // login success, save data to local storage
+      localStorage.setItem('uimeet-token', `${user}`);
+      router.push('/create');
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('message', receiveLoginData, false);
+    if (localStorage.getItem('uimeet-token') !== null) {
+      router.push('/create');
+    }
+  }, []);
+
   return (
     <Wrapper>
       <Head>
