@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import styled from 'styled-components';
 import GradientAsset from '../assets/GradientAsset';
 import Button from '../../components/Button';
 import { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
+import jwt_decode from 'jwt-decode';
+import axios from 'axios';
+import { DJANGO_SSO_LOGOUT_URL } from '../../utils/api';
 
 const Wrapper = styled.div`
   background-color: #f9fbfe;
@@ -28,6 +31,7 @@ const Wrapper = styled.div`
 
 const Index = () => {
   const [roomName, setRoomName] = useState('');
+  const [userName, setUserName] = useState('');
   const router = useRouter();
   const handleCreateMeeting = () => {
     if (roomName.split(' ').length > 1) {
@@ -47,6 +51,46 @@ const Index = () => {
       });
     }
   };
+
+  const receiveLoginData = (event) => {
+    const origin = event.origin || event.originalEvent.origin;
+    const user = event.data;
+
+    if (DJANGO_SSO_LOGOUT_URL.startsWith(origin)) {
+      // login success, save data to local storage
+      localStorage.removeItem('uimeet-token');
+      router.push('/');
+      return;
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('uimeet-token');
+    const loginWindow = window.open(
+      DJANGO_SSO_LOGOUT_URL,
+      '_blank',
+      'width=800,height=800',
+    );
+
+    const getUserDataInterval = setInterval(() => {
+      if (loginWindow.closed) {
+        clearInterval(getUserDataInterval);
+      }
+      loginWindow.postMessage('JOFIL', DJANGO_SSO_LOGOUT_URL);
+    }, 1000);
+  };
+
+  useEffect(() => {
+    window.addEventListener('message', receiveLoginData, false);
+    if (localStorage.getItem('uimeet-token') === null) {
+      router.push('/');
+      return;
+    }
+    const token = localStorage.getItem('uimeet-token');
+    const decoded = jwt_decode(token);
+    setUserName(decoded.cas.name);
+  }, []);
+
   return (
     <Wrapper>
       <Head>
@@ -57,7 +101,7 @@ const Index = () => {
           <GradientAsset className="max-h-full w-auto spin-slowly" />
         </div>
         <div className="w-100 flex flex-row justify-center main__normal text-3xl md:text-4xl text-center px-6 md:px-0 ">
-          Hello, Jonathan.
+          Hello, {userName}.
         </div>
         <div className="w-100 flex flex-row justify-center main__normal text-3xl md:text-4xl text-center px-6 md:px-0 my-2 ">
           <input
@@ -70,6 +114,12 @@ const Index = () => {
         </div>
         <div className="w-100 flex flex-row justify-center mt-4">
           <Button onClick={() => handleCreateMeeting()}>CREATE MEETING</Button>
+        </div>
+        <div
+          className="self-center mx-3 mt-2 main__text text-muted cursor-pointer"
+          onClick={() => handleLogout()}
+        >
+          LOG OUT
         </div>
       </Layout>
     </Wrapper>
