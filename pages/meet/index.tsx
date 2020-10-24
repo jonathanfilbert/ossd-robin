@@ -23,12 +23,7 @@ const MeetWithIDPage = () => {
     setJWT(token);
   }, []);
 
-  useEffect(() => {
-    console.log('ini name', userName);
-  }, [userName]);
-
   const handleApi = (JitsiMeetAPI) => {
-    console.log(JitsiMeetAPI);
     JitsiMeetAPI.addEventListener('videoConferenceLeft', () => {
       setIsMeetingLeft(true);
       setTimeout(() => {
