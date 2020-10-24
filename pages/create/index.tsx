@@ -52,36 +52,29 @@ const Index = () => {
     }
   };
 
-  const receiveLoginData = (event) => {
+  const receiveLogoutData = (event) => {
     const origin = event.origin || event.originalEvent.origin;
     const user = event.data;
-
     if (DJANGO_SSO_LOGOUT_URL.startsWith(origin)) {
-      // login success, save data to local storage
       localStorage.removeItem('uimeet-token');
+      window.removeEventListener('message', () => null);
       router.push('/');
-      return;
     }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('uimeet-token');
-    const loginWindow = window.open(
-      DJANGO_SSO_LOGOUT_URL,
-      '_blank',
-      'width=800,height=800',
-    );
+    const logoutWindow = window.open(DJANGO_SSO_LOGOUT_URL, '_blank');
 
     const getUserDataInterval = setInterval(() => {
-      if (loginWindow.closed) {
+      if (logoutWindow.closed) {
         clearInterval(getUserDataInterval);
       }
-      loginWindow.postMessage('JOFIL', DJANGO_SSO_LOGOUT_URL);
+      logoutWindow.postMessage('JOFIL', DJANGO_SSO_LOGOUT_URL);
     }, 1000);
   };
 
   useEffect(() => {
-    window.addEventListener('message', receiveLoginData, false);
+    window.addEventListener('message', receiveLogoutData, false);
     if (localStorage.getItem('uimeet-token') === null) {
       router.push('/');
       return;

@@ -47,11 +47,11 @@ const Index = () => {
   };
 
   const receiveLoginData = (event) => {
+    window.removeEventListener('message', () => null, false);
     const origin = event.origin || event.originalEvent.origin;
     const user = event.data;
 
-    if (DJANGO_SSO_LOGIN_URL.startsWith(origin)) {
-      // login success, save data to local storage
+    if (DJANGO_SSO_LOGIN_URL.startsWith(origin) && user !== 'ok') {
       localStorage.setItem('uimeet-token', `${user}`);
       router.push('/create');
     }
