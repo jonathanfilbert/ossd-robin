@@ -13,11 +13,12 @@ const MeetWithIDPage = () => {
   const [isMeetingLeft, setIsMeetingLeft] = useState(false);
   const { meetId } = router.query;
   useEffect(() => {
-    if (localStorage.getItem('uimeet-token') === null) {
-      router.push('/');
-      return;
-    }
+    // if (localStorage.getItem('uimeet-token') === null) {
+    //   router.push('/');
+    //   return;
+    // }
     const token = localStorage.getItem('uimeet-token');
+    console.log('Masuk useEffect meet page ===> ini token', token);
     const decoded = jwt_decode(token);
     setUserName(decoded.cas.name);
     // setJWT(token);
