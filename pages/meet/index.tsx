@@ -9,7 +9,7 @@ import LeftMeeting from './LeftMeeting';
 const MeetWithIDPage = () => {
   const router = useRouter();
   const [userName, setUserName] = useState('');
-  const [jwt, setJWT] = useState('');
+  // const [jwt, setJWT] = useState('');
   const [isMeetingLeft, setIsMeetingLeft] = useState(false);
   const { meetId } = router.query;
   useEffect(() => {
@@ -20,7 +20,7 @@ const MeetWithIDPage = () => {
     const token = localStorage.getItem('uimeet-token');
     const decoded = jwt_decode(token);
     setUserName(decoded.cas.name);
-    setJWT(token);
+    // setJWT(token);
   }, []);
 
   const handleApi = (JitsiMeetAPI) => {
@@ -51,7 +51,6 @@ const MeetWithIDPage = () => {
               loadingComponent={Loading}
               domain="jitsi-editreadmedapatbaju.cs.ui.ac.id/jitsi"
               containerStyle={{ width: '100%', height: '100%' }}
-              jwt={jwt}
               onAPILoad={handleApi}
             />
           )}

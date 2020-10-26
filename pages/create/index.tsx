@@ -54,7 +54,6 @@ const Index = () => {
 
   const receiveLogoutData = (event) => {
     const origin = event.origin || event.originalEvent.origin;
-    const user = event.data;
     if (DJANGO_SSO_LOGOUT_URL.startsWith(origin)) {
       localStorage.removeItem('uimeet-token');
       window.removeEventListener('message', () => null);

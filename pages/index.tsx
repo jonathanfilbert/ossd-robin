@@ -32,11 +32,7 @@ const Index = () => {
   const router = useRouter();
 
   const handleLogin = () => {
-    const loginWindow = window.open(
-      DJANGO_SSO_LOGIN_URL,
-      '_blank',
-      'width=800,height=800',
-    );
+    const loginWindow = window.open(DJANGO_SSO_LOGIN_URL, '_blank');
 
     const getUserDataInterval = setInterval(() => {
       if (loginWindow.closed) {
