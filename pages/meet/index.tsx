@@ -13,11 +13,11 @@ const MeetWithIDPage = () => {
   const [isMeetingLeft, setIsMeetingLeft] = useState(false);
   const { meetId } = router.query;
   useEffect(() => {
-    // if (localStorage.getItem('uimeet-token') === null) {
-    //   router.push('/');
-    //   return;
-    // }
-    const token = localStorage.getItem('uimeet-token');
+    if (sessionStorage.getItem('uimeet-token') === null) {
+      router.push('/');
+      return;
+    }
+    const token = sessionStorage.getItem('uimeet-token');
     console.log('Masuk useEffect meet page ===> ini token', token);
     const decoded = jwt_decode(token);
     setUserName(decoded.cas.name);
@@ -36,7 +36,7 @@ const MeetWithIDPage = () => {
   return (
     <>
       <Head>
-        <script src="https://jitsi-editreadmedapatbaju.cs.ui.ac.id/jitsi/external_api.js"></script>
+        {/* <script src="https://jitsi-editreadmedapatbaju.cs.ui.ac.id/jitsi/external_api.js"></script> */}
         <title>uimeet | {meetId} Meeting</title>
       </Head>
       <div className=" w-screen h-screen">

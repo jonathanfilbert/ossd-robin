@@ -54,8 +54,18 @@ const Index = () => {
 
   const receiveLogoutData = (event) => {
     const origin = event.origin || event.originalEvent.origin;
-    if (DJANGO_SSO_LOGOUT_URL.startsWith(origin)) {
-      localStorage.removeItem('uimeet-token');
+    if (event.data === 'ok') {
+      // logout
+      sessionStorage.removeItem('uimeet-token');
+      window.removeEventListener('message', () => null);
+      router.push('/');
+    }
+    if (
+      DJANGO_SSO_LOGOUT_URL.startsWith(origin) &&
+      event.data.startsWith('ey')
+    ) {
+      console.log('Masuk sini', event.data);
+      sessionStorage.removeItem('uimeet-token');
       window.removeEventListener('message', () => null);
       router.push('/');
     }
@@ -74,11 +84,11 @@ const Index = () => {
 
   useEffect(() => {
     window.addEventListener('message', receiveLogoutData, false);
-    if (localStorage.getItem('uimeet-token') === null) {
+    if (sessionStorage.getItem('uimeet-token') === null) {
       router.push('/');
       return;
     }
-    const token = localStorage.getItem('uimeet-token');
+    const token = sessionStorage.getItem('uimeet-token');
     const decoded = jwt_decode(token);
     setUserName(decoded.cas.name);
   }, []);

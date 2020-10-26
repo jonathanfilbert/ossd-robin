@@ -47,15 +47,16 @@ const Index = () => {
     const origin = event.origin || event.originalEvent.origin;
     const user = event.data;
 
-    if (DJANGO_SSO_LOGIN_URL.startsWith(origin) && user !== 'ok') {
-      localStorage.setItem('uimeet-token', `${user}`);
+    if (user.startsWith('ey') && user !== 'ok' && user.scope === undefined) {
+      console.log('INI DIA ===>', user);
+      sessionStorage.setItem('uimeet-token', `${user}`);
       router.push('/create');
     }
   };
 
   useEffect(() => {
     window.addEventListener('message', receiveLoginData, false);
-    if (localStorage.getItem('uimeet-token') !== null) {
+    if (sessionStorage.getItem('uimeet-token') !== null) {
       router.push('/create');
     }
   }, []);
