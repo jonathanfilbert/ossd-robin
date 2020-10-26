@@ -12,13 +12,21 @@ const MeetWithIDPage = () => {
   const [jwt, setJWT] = useState('');
   const [isMeetingLeft, setIsMeetingLeft] = useState(false);
   const { meetId } = router.query;
+
+  // add the current meeting to the meeting list
+
   useEffect(() => {
     if (sessionStorage.getItem('uimeet-token') === null) {
-      router.push('/');
+      if (window.location.href.includes('meetId=')) {
+        const roomRedirect = window.location.href.split('meetId=').pop();
+        router.push(`/?redirect=${roomRedirect}`);
+      } else {
+        router.push('/');
+      }
       return;
     }
     const token = sessionStorage.getItem('uimeet-token');
-    console.log('Masuk useEffect meet page ===> ini token', token);
+
     const decoded = jwt_decode(token);
     setUserName(decoded.cas.name);
     setJWT(token);
@@ -32,6 +40,23 @@ const MeetWithIDPage = () => {
       }, 3000);
     });
   };
+
+  useEffect(() => {
+    const meetingHistory: string[] = JSON.parse(
+      window.sessionStorage.getItem('uimeet-history'),
+    );
+    if (meetingHistory !== null) {
+      if (meetingHistory === undefined) {
+        sessionStorage.setItem('uimeet-history', JSON.stringify([`${meetId}`]));
+      } else {
+        meetingHistory.push(`${meetId ? meetId : 'Your First Meeting'}`);
+        sessionStorage.setItem(
+          'uimeet-history',
+          JSON.stringify(meetingHistory),
+        );
+      }
+    }
+  }, [meetId]);
 
   return (
     <>

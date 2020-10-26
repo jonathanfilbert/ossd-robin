@@ -6,8 +6,8 @@ import Button from '../../components/Button';
 import { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
 import jwt_decode from 'jwt-decode';
-import axios from 'axios';
 import { DJANGO_SSO_LOGOUT_URL } from '../../utils/api';
+import MeetingHistory from './components/MeetingHistory';
 
 const Wrapper = styled.div`
   background-color: #f9fbfe;
@@ -32,6 +32,7 @@ const Wrapper = styled.div`
 const Index = () => {
   const [roomName, setRoomName] = useState('');
   const [userName, setUserName] = useState('');
+  const [meetingHistory, setMeetingHistory] = useState([]);
   const router = useRouter();
   const handleCreateMeeting = () => {
     if (roomName.split(' ').length > 1) {
@@ -64,7 +65,6 @@ const Index = () => {
       DJANGO_SSO_LOGOUT_URL.startsWith(origin) &&
       event.data.startsWith('ey')
     ) {
-      console.log('Masuk sini', event.data);
       sessionStorage.removeItem('uimeet-token');
       window.removeEventListener('message', () => null);
       router.push('/');
@@ -87,6 +87,11 @@ const Index = () => {
     if (sessionStorage.getItem('uimeet-token') === null) {
       router.push('/');
       return;
+    }
+    if (sessionStorage.getItem('uimeet-history') !== null) {
+      setMeetingHistory(JSON.parse(sessionStorage.getItem('uimeet-history')));
+    } else {
+      sessionStorage.setItem('uimeet-history', JSON.stringify([]));
     }
     const token = sessionStorage.getItem('uimeet-token');
     const decoded = jwt_decode(token);
@@ -122,6 +127,14 @@ const Index = () => {
           onClick={() => handleLogout()}
         >
           LOG OUT
+        </div>
+        {/* meeting history section */}
+        <div className="w-100 min-h-screen">
+          {meetingHistory.length > 0 ? (
+            <MeetingHistory meetings={meetingHistory} />
+          ) : (
+            <div>Empty.</div>
+          )}
         </div>
       </Layout>
     </Wrapper>
