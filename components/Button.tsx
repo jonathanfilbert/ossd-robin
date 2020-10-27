@@ -5,10 +5,11 @@ type ButtonProps = {
   onClick: () => any;
 };
 
-const Button = ({ children, onClick }: ButtonProps) => {
+const Button = ({ children, onClick, ...rest }: ButtonProps) => {
   return (
     <div
-      className=" px-8 py-2 rounded-full text-white main__text bg-main  hover:bg-orange-700 cursor-pointer"
+      {...rest}
+      className=" px-8 py-2 rounded-full text-white main__text bg-main  hover:bg-orange-700 cursor-pointer text-center"
       onClick={() => onClick()}
     >
       {children}

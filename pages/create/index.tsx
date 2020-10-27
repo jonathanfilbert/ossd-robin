@@ -8,6 +8,7 @@ import Layout from '../../components/Layout';
 import jwt_decode from 'jwt-decode';
 import { DJANGO_SSO_LOGOUT_URL } from '../../utils/api';
 import MeetingHistory from './components/MeetingHistory';
+import EmptyMeetingHistory from './assets/EmptyMeetingHistory';
 
 const Wrapper = styled.div`
   background-color: #f9fbfe;
@@ -129,11 +130,24 @@ const Index = () => {
           LOG OUT
         </div>
         {/* meeting history section */}
-        <div className="w-100 min-h-screen">
+        <div className="w-100 min-h-screen m-auto mt-10">
+          <div className="main__bold text-2xl text-center mb-4">
+            My Meeting History
+          </div>
           {meetingHistory.length > 0 ? (
             <MeetingHistory meetings={meetingHistory} />
           ) : (
-            <div>Empty.</div>
+            <div className="text-center mt-24">
+              <div className="w-24 m-auto">
+                <EmptyMeetingHistory />
+              </div>
+              <div
+                className="font-normal mt-3 main__text"
+                style={{ color: '#DCE0E5' }}
+              >
+                Start a meeting and it will appear here.
+              </div>
+            </div>
           )}
         </div>
       </Layout>
