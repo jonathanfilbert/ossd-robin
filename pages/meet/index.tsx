@@ -75,7 +75,7 @@ const MeetWithIDPage = () => {
               roomName={`${meetId}`}
               displayName={userName}
               loadingComponent={Loading}
-              domain="jitsi-editreadmedapatbaju.cs.ui.ac.id/jitsi"
+              domain="meet.jit.si/"
               containerStyle={{ width: '100%', height: '100%' }}
               onAPILoad={handleApi}
               jwt={jwt}
