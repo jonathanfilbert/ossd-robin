@@ -2,13 +2,10 @@ import React, { useEffect } from 'react';
 import Head from 'next/head';
 import styled from 'styled-components';
 import GradientAsset from './assets/GradientAsset';
-import MainLogo from './assets/MainLogo';
 import Button from '../components/Button';
 import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
-import { useQuery } from 'react-query';
 import { DJANGO_SSO_LOGIN_URL } from '../utils/api';
-import axios from 'axios';
 
 const Wrapper = styled.div`
   @keyframes spin {
@@ -30,6 +27,7 @@ const Wrapper = styled.div`
 
 const Index = () => {
   const router = useRouter();
+  const { redirect } = router.query;
 
   const handleLogin = () => {
     const loginWindow = window.open(DJANGO_SSO_LOGIN_URL, '_blank');
@@ -48,16 +46,23 @@ const Index = () => {
     const user = event.data;
 
     if (user.startsWith('ey') && user !== 'ok' && user.scope === undefined) {
-      console.log('INI DIA ===>', user);
       sessionStorage.setItem('uimeet-token', `${user}`);
-      router.push('/create');
+      if (redirect !== undefined) {
+        router.push(`/meet?meetId=${redirect}`);
+      } else {
+        router.push('/create');
+      }
     }
   };
 
   useEffect(() => {
     window.addEventListener('message', receiveLoginData, false);
     if (sessionStorage.getItem('uimeet-token') !== null) {
-      router.push('/create');
+      if (redirect !== undefined) {
+        router.push(`/meet?meetId=${redirect}`);
+      } else {
+        router.push('/create');
+      }
     }
   }, []);
 
